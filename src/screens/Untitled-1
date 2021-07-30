@@ -1,0 +1,121 @@
+import React, { Component } from 'react';
+import styled from 'styled-components/native';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { connect } from 'react-redux';
+import { fetchPostsIfNeeded } from '../actions'
+import GridView from 'react-native-super-grid';
+import ProductItem from './../components/Elements/ProductItem';
+import { StyleSheet, SafeAreaView, Animated } from 'react-native'
+import { ScrollView } from 'react-native-gesture-handler';
+import TopBar from './../components/Elements/TopBar';
+import { common_styles as styles } from './../css/style'
+import ProductDetailsImageGallery from './../components/Elements/ProductDetailsImageGallery';
+import { View, Text, Image, Dimensions } from 'react-native'
+import { TouchableOpacity } from 'react-native'
+
+const ContainerView = styled.View`
+  flex: 1;
+  justifyContent: center;
+  alignItems: center;
+`;
+
+const TitleText = styled.Text`
+  fontSize: 30;
+  color: ${props => props.theme.WHITE};
+`;
+
+class DeliveryDetails extends Component {
+    componentDidMount(prevProps, prevState, snapshot) {
+
+
+    }
+
+    static navigationOptions = {
+        title: 'Delivery Details'
+    };
+    render() {
+        let productName = "Latest Leather Suits"
+        let productDescription = "Wow the product is amazing...weighing so light just 2 kg and spacious i giftted to my mom dad Omg! Their reaction was lovely ...loved it completely Excellent purchase in 2075/- worth the price as well as superfast delivery by Flipkart order it today receive it next day"
+        let productPrice = "200"
+        let productOriginalPrice = "300"
+        let additionalCharges = 'Additional charges applicable, will be charged at checkout.'
+        let arrSizes = ["XS", "S", "M", "L", "XL", "XXL"]
+        let sizeViewArray = arrSizes.map(size => (
+            <View style={{ height: 40, width: 40, backgroundColor: '#ddd', justifyContent: 'space-around' }}><Text style={{ textAlign: 'center', alignContent: 'center' }}>{size}</Text></View>
+        ))
+        return (
+            <SafeAreaView style={{ backgroundColor: '#fff', flex: 1 }}>
+                <TopBar notificationCount="9" cartCount="10" isTypeOfBack="back"></TopBar>
+                {/* <ScrollView scrollEventThrottle={16}>
+                    <ScrollView horizontal={true} showsHorizontalScrollIndicator={false} pagingEnabled={true}>
+                        <ProductDetailsImageGallery height={300} width={Dimensions.get('window').width} />
+                        <ProductDetailsImageGallery height={300} width={Dimensions.get('window').width} />
+                        <ProductDetailsImageGallery height={300} width={Dimensions.get('window').width} />
+                    </ScrollView>
+                    <Text style={{ fontSize: 16, fontWeight: '600', margin: 10, color: 'gray' }}>{productName}</Text>
+                    <Text style={{ fontSize: 12, fontWeight: '300', marginLeft: 10, marginRight: 10, color: 'gray' }}>{productDescription}</Text>
+                    <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 20, fontWeight: '600', margin: 10, color: 'orange' }}>${productPrice}</Text>
+                        <Text style={{ fontSize: 20, fontWeight: '600', margin: 10, color: 'gray', textDecorationLine: 'line-through' }}>${productOriginalPrice}</Text>
+                        <Text style={{ fontSize: 20, fontWeight: '600', margin: 10, color: 'red' }}>(30% off)</Text>
+                        <Image source={{ uri: 'https://first.dentist/wp-content/uploads/2017/03/free-offer-icon-photos-31.jpg' }} style={{ height: 40, width: 40, resizeMode: 'cover' }} />
+                    </View>
+                    <Text style={{ fontSize: 11, fontWeight: '300', margin: 10, color: 'gray' }}>{additionalCharges}</Text>
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#f5f5f5', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 14, fontWeight: '600', margin: 10, color: 'gray' }}>TAP FOR BEST PRICE</Text>
+                        <Icon name="ios-arrow-down" size={25} color="#565656" style={{ marginRight: 20 }} />
+                    </View>
+                    <View>
+                        <View>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', }}>
+                                <Text style={{ fontSize: 14, fontWeight: '300', margin: 10, color: 'gray' }}>Flat $20 cash back on Phone pa</Text>
+                                <Text style={{ fontSize: 14, fontWeight: '500', margin: 10, color: '#0080ff' }}>T&C</Text>
+                            </View>
+                            <Text style={{ fontSize: 12, fontWeight: '300', marginLeft: 10, marginRight: 10, marginTop: 0, marginBottom: 5, color: 'gray' }}>I want to display a marker if the points is greater than or equal than the cost of the marker. If it is lower than that, it should not render on the view.</Text>
+                            <View style={{ flex: 1, height: 1, backgroundColor: '#f5f5f5' }}></View>
+                        </View>
+                        <View>
+                            <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', }}>
+                                <Text style={{ fontSize: 14, fontWeight: '300', margin: 10, color: 'gray' }}>Flat $20 cash back on Phone pa</Text>
+                                <Text style={{ fontSize: 14, fontWeight: '500', margin: 10, color: '#0080ff' }}>T&C</Text>
+                            </View>
+                            <Text style={{ fontSize: 12, fontWeight: '300', marginLeft: 10, marginRight: 10, marginTop: 0, marginBottom: 5, color: 'gray' }}>I want to display a marker if the points is greater than or equal than the cost of the marker. If it is lower than that, it should not render on the view.</Text>
+                            <View style={{ flex: 1, height: 1, backgroundColor: '#f5f5f5' }}></View>
+                        </View>
+                    </View>
+
+                    <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', }}>
+                        <Text style={{ fontSize: 14, fontWeight: '300', margin: 10, color: 'gray' }}>SELECT SIZE</Text>
+                        <Text style={{ fontSize: 14, fontWeight: '500', margin: 10, color: '#ffa800' }}>Size Chart</Text>
+                    </View>
+
+                    <View style={{ flex: 1, flexDirection: 'row', height: 50, justifyContent: 'space-around', margin: 10, alignContent: 'flex-start' }}>{sizeViewArray}</View>
+
+                </ScrollView>
+
+                <View style={{ marginBottom: 5, backgroundColor: '#ddd', height: 50, flexDirection: 'row', justifyContent: 'space-around' }}>
+                    <TouchableOpacity onPress={()=>this.showAlert()} style={{alignItems: 'center', justifyContent: 'center',}}>
+                    <View style={{ backgroundColor: 'white', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#ddd' }} width={Dimensions.get('window').width / 2 - 0.5}>
+                        <Icon name="ios-heart" size={25} color="#565656" />
+                        <Text style={{ color: '#565656', marginLeft: 20 }}>ADD TO WISHLIST</Text>
+                    </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={()=>this.showAlert()} style={{alignItems: 'center', justifyContent: 'center',}}>
+                    <View style={{ backgroundColor: 'white', flexDirection: 'row', alignItems: 'center', justifyContent: 'center', backgroundColor: '#ffa800' }} width={Dimensions.get('window').width / 2 - 0.5}>
+                        <Icon name="md-basket" size={25} color="white" />
+                        <Text style={{ color: 'white', marginLeft: 20 }}>ADD TO BAG</Text>
+                    </View></TouchableOpacity>
+                </View> */}
+            </SafeAreaView>
+        );
+    }
+}
+
+ export default DeliveryDetails;
+// const mapStateToProps = (state) => ({
+// 	curState:state
+// });
+
+// export default connect(mapStateToProps, {
+// 	//changeLanguage,
+// })(DeliveryDetails);

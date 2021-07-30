@@ -1,0 +1,1 @@
+export const WEBSERVICE_URL = 'https://go2grocer.com:6009/api/v1/'
